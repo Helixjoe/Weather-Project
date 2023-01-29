@@ -9,11 +9,15 @@ app.get("/", function (req, res) {
     console.log(response.statusCode);
     response.on("data", function (data) {
       const weatherData = JSON.parse(data);
-      console.log(weatherData.main.temp);
-      console.log(weatherData.weather[0].description);
+      const temp = weatherData.main.temp;
+      const desc = weatherData.weather[0].description;
+      res.write(
+        "<h1>The temperature in Delhi is " + temp + " degree Celcius</h1>"
+      );
+      res.write("<p>The weather is " + desc + ".</p>");
+      res.send();
     });
   });
-  res.send("Server is up and running");
 });
 app.listen(3000, function () {
   console.log("Server is running on 3000");
